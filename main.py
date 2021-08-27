@@ -1,40 +1,34 @@
-class mainProgram():
-
-    def __init__(self, plugboard = {" " : " "}, rotor_1 = None, rotor_2 = None, rotor_3 = None):
-        alphabet_lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-        if rotor_1 != None and rotor_2 != None and rotor_3 != None and plugboard != None:
-            if type(plugboard) != dict:
-                self.plugboard = {" " : " "}
-            self.rotor_1 = rotor_1
-            self.rotor_2 = rotor_2
-            self.rotor_3 = rotor_3
-        else:
-            if type(plugboard) != dict:
-                self.plugboard = {" ": " "}
-            self.rotor_1 = 0
-            self.rotor_2 = 0
-            self.rotor_3 = 0
+import enigma as ee
+import rotors as ro
 
 
-if __name__ == "__main__":
-    method = input("Enter whether you want to encrypt or decrypt: ")
-    if method.lower() == "encrypt":
-        rotor_settings = input("Do you want to specify the enigma settings yourself (Y) or use default settings (N): ")
-        if rotor_settings.lower() == "Y":
-            plugboard = input("Enter the plugboard settings: ")
-            rotor_1 = int(input("Enter the value of rotor 1: "))
-            rotor_2 = int(input("Enter the value of rotor 2: "))
-            rotor_3 = int(input("Enter the value of rotor 3: "))
-            mainProgram(plugboard, rotor_1, rotor_2, rotor_3)
-        elif rotor_settings.lower() == "N":
-            mainProgram()
-    elif method.lower() == "decrypt":
-        plugboard = input("Enter the plugboard settings: ")
-        rotor_1 = int(input("Enter the value of rotor 1: "))
-        rotor_2 = int(input("Enter the value of rotor 2: "))
-        rotor_3 = int(input("Enter the value of rotor 3: "))
-        mainProgram(plugboard, rotor_1, rotor_2, rotor_3)
+start = input("Welcome to the enigma encryption. If you want to know some valuable information about the enigma machine or need"
+            " help on this program please type in !help, other wise just press enter to skip.\n")
+if start == "!help":
+    print("Very well. This enigma machine is the Swiss-K variant that was actually used by the Swiss Air Force. All the Swiss-K"
+        " machines were actually based of the Enigma-D, which was what the Germans delivered to them. After they recieved them"
+        " however, the Swiss changed the wiring of all cipher wheels, but left the reflector unchanged. The only known cipher wheel"
+        " wirings are the ones found in the Swiss Airforce (which is what this enigma machine is based on).")
+method = input("Enter whether you want to encrypt or decrypt: ")
+text = input(f"Enter the text you want to {method}: ")
+if method.lower() == "encrypt":
+    rotor_settings = input("Do you want to specify the enigma settings yourself (Y) or use default settings (N): ")
+    if rotor_settings.lower() == "y":
+        encryption_enigma_machine = ee.Enigma(ro.UKW, ro.ROTOR_I, ro.ROTOR_II, ro.ROTOR_III, "ABC", "AV BS CG DL FU HZ IN KM OW RX")
+        encrypted_text = encryption_enigma_machine.encipher(text)
+        print(encrypted_text)
+    elif rotor_settings.lower() == "n":
+        pass
+
+elif method.lower() == "decrypt":
+    decryption_enigma_machine = ee.Enigma(ro.UKW, ro.ROTOR_I, ro.ROTOR_II, ro.ROTOR_III, "ABC", "AV BS CG DL FU HZ IN KM OW RX")
+    decrypted_text = decryption_enigma_machine.encipher(text)
+    print(decrypted_text)
+
+    # AV BS CG DL FU HZ IN KM OW RX
+
+
+
 
 
     
