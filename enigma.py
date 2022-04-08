@@ -1,4 +1,3 @@
-from _typeshed import Self
 from rotors import *
 
 
@@ -23,7 +22,7 @@ class Enigma(object):
 
         self.reflector.state = 'A'
 
-        plugboard_settings= [(elem[0], elem[1]) for elem in plugboard.split()]
+        plugboard_settings= [(i[0], i[1]) for i in plugboard.split()]
 
         alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         alpha_out = [" "] * 26
@@ -70,47 +69,9 @@ class Enigma(object):
             else:
                 fres += char
         return fres
-
-    def decorator_engima_machine(self, func):
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        for x in alphabet:
-            if x == func:
-                chosen_letter = x
         
-        i = ""
-        for x in self.plugboard:
-            if x.isalpha():
-                i += x
-        length_of_plugboard = len(i)
-        def inner():
-            f"""                                  
- -----------------------------------------------------------
-|          ___		         ___			   ___	        |
-|         | A |	            | A |			  | A |	        |
-|         |___|	            |___|			  |___|	        |
-|         | A | ----------- | A | ----------- | A |         |
-|         |___|	            |___|			  |___|	        |
-|         | A |	            | A |			  | A |	        |
-|         |___|	            |___|			  |___|	        |
-|															|
-|     -   -     -    -    -    -    -    -    -    -		|
-|    |Q|  |W|  |E|  |R|  |T|  |Y|  |U|  |I|  |O|  |P|       |
-|     -    -    -    -    -    -    -    -    -    -		|
-|	    -    -    -    -    -    -    -    -    -     		|
-|	   |A|  |S|  |D|  |F|  |G|  |H|  |J|  |K|  |L| 			|
-|	    -    -    -    -    -    -    -    -    - 			|
-|		   -    -    -    -    -    -    -					|
-|		  |Z|  |X|  |C|  |V|  |B|  |N|  |M|					|
-|		   -    -    -    -    -    -    -					|
-|___________________________________________________________|
-|    ___	 ___     ___	 ___	 ___     ___	 ___	|
-|   | {i[0]} |   | {i[2]} |   | {i[4]} |   | {i[6]} |   | {i[8]} |   | {i[10]} |   | {i[12]} |   |
-|   | {i[1]} |   | {i[3]} |   | {i[5]} |   | {i[7]} |   | {i[9]} |   | {i[11]} |   | {i[13]} |   |
-|   |___|   |___|   |___|   |___|   |___|   |___|   |___| 	|
-|		 ___	 ___	 ___	 ___     ___     ___ 		|
-|		| {i[14]} |   | {i[16]} |   | {i[18]} |   | {i[20]} |   | {i[22]} |   | {i[24]} |		|
-|		| {i[15]} |   | {i[17]} |   | {i[19]} |   | {i[21]} |   | {i[23]} |   | {i[25]} |		|
-|		|___|   |___|   |___|   |___|   |___|   |___|		|
- -----------------------------------------------------------
-        """
-        return inner
+    def returnRotorPositions(self):
+        current_position = [self.rotor1.state, self.rotor2.state, self.rotor3.state]
+        return current_position
+
+

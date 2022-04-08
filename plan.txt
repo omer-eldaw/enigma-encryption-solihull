@@ -1,26 +1,28 @@
 FUNCTION INCLUDES:
 
 	CLASSES (SEPERATED EACH MAIN FUNCTION OF THE ENIGMA INTO THREE MAIN PARTS):
-		- The Enigma Machine itself
-		- The Rotor
-		- The Reflector
+		- The Enigma Machine itself X
+		- The Rotor X
+		- The Reflector X
 
 	TWO MAIN DECISIONS IN THE MAIN FILE:
 		- ENCRYPTION
-			- OPTION TO ASK USER TO INPUT THE PLUGBOARD AND ROTOR SETTINGS
-			- OPTION TO SET DEFAULT SETTINGS / BASE SETTINGS	
+			- OPTION TO ASK USER TO INPUT THE PLUGBOARD AND ROTOR SETTINGS X
+			- OPTION TO SET DEFAULT SETTINGS / BASE SETTINGS X
 
 		- DECRYPTION
-            - ASK USER TO INPUT THE PLUGBOARD AND ROTOR SETTINGS
+            - ASK USER TO INPUT THE PLUGBOARD AND ROTOR SETTINGS X
 
 MESSY IDEAS:
-- INCLUDE ASCII VERSION OF THE ENIGMA MACHINE EXAMPLE:
+
+
+Create a GUI version of the program:
 
  -----------------------------------------------------------
 |          ___		         ___			   ___	        |
 |         | A |	            | A |			  | A |	        |
 |         |___|	            |___|			  |___|	        |
-|         | A | ----------- | A | ----------- | A |         |
+|         | A | ----------- | A | ----------- | A |         |   <--- ROTORS THEMSELVES
 |         |___|	            |___|			  |___|	        |
 |         | A |	            | A |			  | A |	        |
 |         |___|	            |___|			  |___|	        |
@@ -29,7 +31,7 @@ MESSY IDEAS:
 |    |Q|  |W|  |E|  |R|  |T|  |Y|  |U|  |I|  |O|  |P|       |
 |     -    -    -    -    -    -    -    -    -    -		|
 |	    -    -    -    -    -    -    -    -    -     		|
-|	   |A|  |S|  |D|  |F|  |G|  |H|  |J|  |K|  |L| 			|
+|	   |A|  |S|  |D|  |F|  |G|  |H|  |J|  |K|  |L| 			|   <--- LIGHT UP KEYBOARD SECTION
 |	    -    -    -    -    -    -    -    -    - 			|
 |		   -    -    -    -    -    -    -					|
 |		  |Z|  |X|  |C|  |V|  |B|  |N|  |M|					|
@@ -37,10 +39,19 @@ MESSY IDEAS:
 |___________________________________________________________|
 |    ___	 ___     ___	 ___	 ___     ___	 ___	|
 |   | A |   | B |   | C |   | D |   | F |   | H |   | I |   |
-|   | V |   | S |   | G |   | L |   | U |   | Z |   | N |   |
+|   | V |   | S |   | G |   | L |   | U |   | Z |   | N |   |   <--- PLUGBOARD SETTINGS
 |   |___|   |___|   |___|   |___|   |___|   |___|   |___| 	|
 |		 ___	 ___	 ___	 ___     ___     ___ 		|
 |		| K |   | O |   | R |   | - |   | - |   | - |		|
 |		| M |   | W |   | X |   | - |   | - |   | - |		|
 |		|___|   |___|   |___|   |___|   |___|   |___|		|
  -----------------------------------------------------------
+
+ Create the plugboard settings for the GUI with colour coordination so we can see which plug goes to which plug for each alphabet.
+
+ Next to the rotor values list the plugboard settings 
+ (SCRATCH IDEA) - Allow user to select letters from a list of 13 values.
+
+ LIST TO LIST- DONE
+
+ Randomise function for the plugboard
