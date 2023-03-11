@@ -1,5 +1,6 @@
 from rotors import *
 
+# CREATING THE ENIGMA CLASS. MAIN
 
 class Enigma(object):
 
@@ -22,7 +23,7 @@ class Enigma(object):
 
         self.reflector.state = 'A'
 
-        plugboard_settings= [(i[0], i[1]) for i in plugboard.split()]
+        plugboard_settings= [(i[0], i[1]) for i in plugboard.split()]   # MAPPING THE 
 
         alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         alpha_out = [" "] * 26

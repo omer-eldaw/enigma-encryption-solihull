@@ -1,6 +1,7 @@
 from optparse import Option
 from tkinter import *
 from tkinter import messagebox
+from tkinter import filedialog
 from tkinter import font
 import enigma as ee
 import rotors as ro
@@ -15,12 +16,6 @@ class HelpWindow(Toplevel):
 
     def __init__(self, parent):
 
-        def Table(total_rows, total_columns, row_jump, column_jump):
-            for i in range(total_rows):
-                for j in range(total_columns):
-                    self.e = Entry(self, width=4, font=fontStyle)
-                    self.e.grid(row=i + row_jump, column=j + column_jump, sticky=W)
-                    self.e.insert(END, lst[i][j])
 
         super().__init__(parent)
 
@@ -55,7 +50,7 @@ class MainProgram(Tk):
         opened_before = False
         config.read('config.ini')
         config.add_section('main')
-        config.set('main', 'resolution', '700x375')
+        config.set('main', 'resolution', '850x700')
         with open('config.ini', 'w') as f:
             config.write(f)
 
@@ -110,13 +105,12 @@ class MainProgram(Tk):
         self.rotor_position_clicked_3 = StringVar()
         self.rotor_position_clicked_3.set(rotor_positions[0])
 
-        self.current_rotor_pos = ["-", "-", "-"]
 
 
         # ALLOWS THE ROTORS AND RELFECTOR THAT IS CHOSEN TO BE ASSIGNED TO A VARIABLE
 
 
-        enigma_variation_options = ["Enigma D", "Enigma I", "Sonder Enigma"]
+        enigma_variation_options = ["Enigma D", "Enigma I", "Sonder Enigma", "Norway Enigma"]
 
         self.variation_clicked = StringVar()
         self.variation_clicked.set("-")
@@ -124,6 +118,7 @@ class MainProgram(Tk):
         self.rotor_models_engima_d_commerical = ["Enigma D Rotor I", "Enigma D Rotor II", "Enigma D Rotor III"]
         self.rotor_models_enigma_i_wehrmacht = ["Enigma I Rotor I", "Enigma I Rotor II", "Enigma I Rotor III", "Enigma I Rotor IV", "Enigma I Rotor V"]
         self.rotor_model_sonder_engima = ["Sonder Enigma Rotor I", "Sonder Enigma Rotor II", "Sonder Enigma Rotor III"]
+        self.rotor_model_norway_engima = ["Norway Enigma Rotor I", "Norway Enigma Rotor II", "Norway Enigma Rotor III", "Norway Enigma Rotor IV", "Norway Enigma Rotor V"]
 
         self.model_rotor_1_clicked = StringVar()
         self.model_rotor_1_clicked.set("-")
@@ -134,10 +129,12 @@ class MainProgram(Tk):
         self.model_rotor_3_clicked = StringVar()
         self.model_rotor_3_clicked.set("-")
         
-        self.reflecter_models = ["Enigma D Reflector", "Enigma I Reflector A", "Enigma I Reflector B", "Enigma I Reflector C", "Sonder Enigma Reflector"]
+        self.reflecter_models = ["Enigma D Reflector", "Enigma I Reflector A", "Enigma I Reflector B", "Enigma I Reflector C", "Sonder Enigma Reflector", "Norway Engima Reflector"]
 
         self.model_reflector_clicked = StringVar()
         self.model_reflector_clicked.set("-")
+
+        self.current_rotor_pos = ['-', '-', '-']
 
 
         # ALLOWS THE VALUES FOR THE PLUGBOARD THAT IS CLICKED IN THE MENU TO BE ASSIGNED TO A VARIABLE
@@ -162,7 +159,7 @@ class MainProgram(Tk):
         self.geometry("1300x850")
 
 
-        self.welcomeLabel = Label(self, text="Enigma-Eldaw Machine", font=(fontfamilylist[2], 20)).grid(row=0,column=0, sticky=W)
+        self.welcomeLabel = Label(self, text="Enigma Machine", font=(fontfamilylist[2], 20)).grid(row=0,column=0, sticky=W)
 
         self.methodChosenLabel = Label(self, text="Method: ", font=(fontfamilylist[2], 15)).grid(row=1, column=0, pady=30, sticky=W)
         self.methodChosenValue = OptionMenu(self, self.method_clicked, *methods).grid(row=1, column=0, padx=70, sticky=W)
@@ -174,6 +171,8 @@ class MainProgram(Tk):
         self.encryptionInputLabel = Label(self, text="PLAIN TEXT: ", font=(fontfamilylist[2], 15)).grid(row=2, column=0, sticky=W)
         self.encryptionInputEntry = Entry(self, width=75, borderwidth=5)
         self.encryptionInputEntry.grid(row = 2, column = 0, padx=120, sticky=W)
+
+        self.importButton = Button(self, text="Import", font=(fontfamilylist[2], 10), command=self.importText).grid(row=2, column=0, padx=600, sticky=W)
 
 
         # ROTOR VALUES
@@ -197,7 +196,7 @@ class MainProgram(Tk):
         self.rotorLabel3 = Label(self, text="Rotor 3 Value: ", font=(fontfamilylist[2], 15)).grid(row=5, column=0, padx=300, pady=25, sticky=W)
         self.rotor3ChosenValue = OptionMenu(self, self.rotor_position_clicked_3, *rotor_positions).grid(row=5, column=0, padx=450, sticky=W)
 
-        self.resetRotorValues = Button(self, text="Reset", font=(fontfamilylist[2], 15)).grid(row=3, column=0, padx=500)
+        self.resetRotorValuesButton = Button(self, text="Reset", font=(fontfamilylist[2], 10), command=self.resetRotorValues).grid(row=3, column=0, padx=525, sticky=W)
 
         
 
@@ -282,6 +281,7 @@ class MainProgram(Tk):
         self.encryptionOutputEntry.grid(row=12, column = 0, sticky=W, padx=125)
         self.encryptButton = Button(self, text="Encrypt", font=(fontfamilylist[2], 10), command=self.encryptClick).grid(row=12, column=0, padx=590, sticky=W)
 
+        self.exportButton = Button(self, text="Export", font=(fontfamilylist[2], 10)).grid(row=12, column=0, padx=670, sticky=W)
 
         # HELP BUTTON
 
@@ -305,15 +305,49 @@ class MainProgram(Tk):
             letter = random.choice(list_of_letters)
             list_of_letters.remove(letter)
             exec("self.plugboard_settings_option_" + str(i) + '.set("' + str(letter) + '")')
-            
+
+    def importText(self):
+
+        tf = filedialog.askopenfilename(
+            initialdir="C:\Program Files", 
+            title="Open Text file", 
+            filetypes=(("Text Files", "*.txt"),))
+        tf = open(tf)
+        file_cont = tf.read()
+        tf.close()
+        self.encryptionInputEntry.delete(0, END)
+        self.encryptionInputEntry.insert(END, file_cont)
+
+    def exportText(self):
+        
+        tf = filedialog.askopenfilename(
+            initialdir="C:/Program Files",
+            title="Open text file to save text to",
+            filetypes=(("Text Files", "*.txt"),))
+        tf = open(tf)
+        tempText = self.encryptionOutputEntry.get()
+        tf.write(tempText)
+        tf.close()
+
+        
+
 
     def resetPlugboard(self):
         for i in range(1,27):
             exec("self.plugboard_settings_option_" + str(i) + '.set("-")' )
 
+    def resetRotorValues(self):
+        for i in range(1, 4):
+            exec("self.rotor_position_clicked_" + str(i) + '.set("A")')
+            exec("self.previous_rotor_position_" + str(i) + '.set("-")')
+        
+        self.current_rotor_pos = ['-', '-', '-']
+
+
     def open_support_window(self):
         supportWindow = HelpWindow(self)
         supportWindow.grab_set()
+
 
     def confirmOption(self):
         enigma_variant_chosen = self.variation_clicked.get()
@@ -333,20 +367,22 @@ class MainProgram(Tk):
             self.modelRotor2Value = OptionMenu(self, self.model_rotor_2_clicked, *self.rotor_model_sonder_engima).grid(row=9, column=0, padx=400, sticky=W)
             self.modelRotor3Value = OptionMenu(self, self.model_rotor_3_clicked, *self.rotor_model_sonder_engima).grid(row=10, column=0, padx=400, sticky=W)
 
+        elif enigma_variant_chosen == "Norway Enigma":
+            self.modelRotor1Value = OptionMenu(self, self.model_rotor_1_clicked, *self.rotor_model_norway_engima).grid(row=8, column=0, padx=400, sticky=W)
+            self.modelRotor2Value = OptionMenu(self, self.model_rotor_2_clicked, *self.rotor_model_norway_engima).grid(row=9, column=0, padx=400, sticky=W)
+            self.modelRotor3Value = OptionMenu(self, self.model_rotor_3_clicked, *self.rotor_model_norway_engima).grid(row=10, column=0, padx=400, sticky=W)
+
         
 
     def encryptClick(self):
 
-
-
-        
-        
         reflector_values_dict = {"-" : 0,
                                 "Enigma D Reflector" : ro.ENIGMA_D_COMMERCIAL_REFLECTOR, 
                                  "Enigma I Reflector A" : ro.ENIGMA_I_WEHRMACHT_LUFTWAFFE_REFLECTOR_A, 
                                  "Enigma I Reflector B": ro.ENIGMA_I_WEHRMACHT_LUFTWAFFE_REFLECTOR_B,
                                  "Enigma I Reflector C" : ro.ENIGMA_I_WEHRMACHT_LUFTWAFFE_REFLECTOR_C,
-                                 "Sonder Enigma Reflector" : ro.SONDER_ENGIMA_REFLECTOR}
+                                 "Sonder Enigma Reflector" : ro.SONDER_ENGIMA_REFLECTOR,
+                                 "Norway Engima Reflector" : ro.NORWAY_ENIGMA_REFLECTOR}
 
         rotor_values_dict = {"-" : 0,
                              "Enigma D Rotor I" : ro.ENIGMA_D_COMMERCIAL_ROTOR_I,
@@ -359,7 +395,12 @@ class MainProgram(Tk):
                              "Enigma I Rotor V" : ro.ENIGMA_I_WEHRMACHT_LUFTWAFFE_ROTOR_V,
                              "Sonder Enigma Rotor I" : ro.SONDER_ENGIMA_ROTOR_I,
                              "Sonder Enigma Rotor II" : ro.SONDER_ENGIMA_ROTOR_II,
-                             "Sonder Enigma Rotor III" : ro.SONDER_ENGIMA_ROTOR_III}
+                             "Sonder Enigma Rotor III" : ro.SONDER_ENGIMA_ROTOR_III,
+                             "Norway Enigma Rotor I" : ro.NORWAY_ENIGMA_ROTOR_I,
+                             "Norway Enigma Rotor II" : ro.NORWAY_ENIGMA_ROTOR_II,
+                             "Norway Enigma Rotor III" : ro.NORWAY_ENIGMA_ROTOR_III,
+                             "Norway Enigma Rotor IV" : ro.NORWAY_ENIGMA_ROTOR_IV,
+                             "Norway Enigma Rotor V" : ro.NORWAY_ENIGMA_ROTOR_V}
 
         reflector_model = self.model_reflector_clicked.get()
         reflector_model = reflector_values_dict[reflector_model]
@@ -380,12 +421,14 @@ class MainProgram(Tk):
         encryption_enigma_machine = ee.Enigma(reflector = reflector_model, rotor1 = rotor_1_model, rotor2 = rotor_2_model, rotor3 = rotor_3_model, initial_pos = initialRotorValues, plugboard = plugboardSettings)
         self.encryptionOutputEntry.insert(END, encryption_enigma_machine.encipher(plaintext_in=self.encryptionInputEntry.get()))
 
-
-        self.previous_rotor_position_1.set(self.current_rotor_pos[0])
-        self.previous_rotor_position_2.set(self.current_rotor_pos[1])
-        self.previous_rotor_position_3.set(self.current_rotor_pos[2])
         
         self.current_rotor_pos = encryption_enigma_machine.returnRotorPositions()
+
+
+        self.previous_rotor_position_1.set(self.rotor_position_clicked_1.get())
+        self.previous_rotor_position_2.set(self.rotor_position_clicked_2.get())
+        self.previous_rotor_position_3.set(self.rotor_position_clicked_3.get())
+
 
         self.rotor_position_clicked_1.set(self.current_rotor_pos[0])
         self.rotor_position_clicked_2.set(self.current_rotor_pos[1])
