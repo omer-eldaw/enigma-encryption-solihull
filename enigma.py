@@ -29,9 +29,9 @@ class Enigma(object):
         alpha_out = [" "] * 26
         for i in range(len(alpha)):
             alpha_out[i] = alpha[i]
-        for k, v in plugboard_settings:
-            alpha_out[ord(k)-ord('A')] = v
-            alpha_out[ord(v)-ord('A')] = k
+        for key, value in plugboard_settings:
+            alpha_out[ord(key)-ord('A')] = value
+            alpha_out[ord(value)-ord('A')] = key
 
         self.transtab = str.maketrans(alpha, "".join(alpha_out))
 

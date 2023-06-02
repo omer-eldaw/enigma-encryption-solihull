@@ -8,32 +8,6 @@ import rotors as ro
 import os
 from configparser import ConfigParser
 import random
-
-
-
-class HelpWindow(Toplevel):
-    global file_path_of_image
-
-    def __init__(self, parent):
-
-
-        super().__init__(parent)
-
-        # CODE FOR QUICKLY CHANGING FONTS
-
-        fontfamilylist = list(font.families())
-        fontindex = 2
-        fontStyle = font.Font(family=fontfamilylist[fontindex])
-
-        self.title("Support")
-        self.geometry("850x700")
-
-        self.introduction1 = Label(self,
-                                   text="QUICK INTRODUCTION: An engima cipher is a type of encryption method called polyalphabetic substitution.\n"
-                                        "The reason why the enigma cipher is more secure is because it uses the combination of plugboards, ",
-                                   font=fontStyle).grid(row=0, column=0, sticky=W, columnspan=26)
-
-        self.paragraph = Label(self, text="we", font=fontStyle).grid(row=1, column=0, sticky=W)
             
 
 class MainProgram(Tk):
@@ -156,13 +130,12 @@ class MainProgram(Tk):
 
 
         self.title("Enigma Machine")
-        self.geometry("1300x850")
+        self.geometry("1500x900")
 
 
         self.welcomeLabel = Label(self, text="Enigma Machine", font=(fontfamilylist[2], 20)).grid(row=0,column=0, sticky=W)
 
-        self.methodChosenLabel = Label(self, text="Method: ", font=(fontfamilylist[2], 15)).grid(row=1, column=0, pady=30, sticky=W)
-        self.methodChosenValue = OptionMenu(self, self.method_clicked, *methods).grid(row=1, column=0, padx=70, sticky=W)
+        self.methodChosenLabel = Label(self, text="Welcome to the Enigma Machine, developed by Omer Eldaw", font=(fontfamilylist[2], 15)).grid(row=1, column=0, pady=30, sticky=W)
 
 
         # ENCRYPTION INPUT 
@@ -170,9 +143,9 @@ class MainProgram(Tk):
 
         self.encryptionInputLabel = Label(self, text="PLAIN TEXT: ", font=(fontfamilylist[2], 15)).grid(row=2, column=0, sticky=W)
         self.encryptionInputEntry = Entry(self, width=75, borderwidth=5)
-        self.encryptionInputEntry.grid(row = 2, column = 0, padx=120, sticky=W)
+        self.encryptionInputEntry.grid(row = 2, column = 0, padx=125, sticky=W)
 
-        self.importButton = Button(self, text="Import", font=(fontfamilylist[2], 10), command=self.importText).grid(row=2, column=0, padx=600, sticky=W)
+        self.importButton = Button(self, text="Import", font=(fontfamilylist[2], 10), command=self.importText).grid(row=2, column=0, padx=750, sticky=W)
 
 
         # ROTOR VALUES
@@ -203,60 +176,60 @@ class MainProgram(Tk):
         # PLUGBOARD SETTINGS
 
 
-        self.plugboardsettingsLabel = Label(self, text="Plugboard Settings: ", font=(fontfamilylist[2], 15)).grid(row=3, column=0, padx=600, sticky=W)
+        self.plugboardsettingsLabel = Label(self, text="Plugboard Settings: ", font=(fontfamilylist[2], 15)).grid(row=3, column=0, padx=700, sticky=W)
 
-        self.plugboardsettingsOption1 = OptionMenu(self, self.plugboard_settings_option_1, *plugboard_settings_choices).grid(row=3, column=0, padx=800, sticky=W)
-        self.plugboardsettingsOption2 = OptionMenu(self, self.plugboard_settings_option_2, *plugboard_settings_choices).grid(row=3, column=0, padx=850, sticky=W)
+        self.plugboardsettingsOption1 = OptionMenu(self, self.plugboard_settings_option_1, *plugboard_settings_choices).grid(row=3, column=0, padx=900, sticky=W)
+        self.plugboardsettingsOption2 = OptionMenu(self, self.plugboard_settings_option_2, *plugboard_settings_choices).grid(row=3, column=0, padx=950, sticky=W)
 
-        self.plugboardsettingsOption3 = OptionMenu(self, self.plugboard_settings_option_3, *plugboard_settings_choices).grid(row=3, column=0, padx=925, sticky=W)
-        self.plugboardsettingsOption4 = OptionMenu(self, self.plugboard_settings_option_4, *plugboard_settings_choices).grid(row=3, column=0, padx=975, sticky=W)
+        self.plugboardsettingsOption3 = OptionMenu(self, self.plugboard_settings_option_3, *plugboard_settings_choices).grid(row=3, column=0, padx=1025, sticky=W)
+        self.plugboardsettingsOption4 = OptionMenu(self, self.plugboard_settings_option_4, *plugboard_settings_choices).grid(row=3, column=0, padx=1075, sticky=W)
 
-        self.plugboardsettingsOption5 = OptionMenu(self, self.plugboard_settings_option_5, *plugboard_settings_choices).grid(row=3, column=0, padx=1050, sticky=W)
-        self.plugboardsettingsOption6 = OptionMenu(self, self.plugboard_settings_option_6, *plugboard_settings_choices).grid(row=3, column=0, padx=1100, sticky=W)
+        self.plugboardsettingsOption5 = OptionMenu(self, self.plugboard_settings_option_5, *plugboard_settings_choices).grid(row=3, column=0, padx=1150, sticky=W)
+        self.plugboardsettingsOption6 = OptionMenu(self, self.plugboard_settings_option_6, *plugboard_settings_choices).grid(row=3, column=0, padx=1200, sticky=W)
 
-        self.plugboardsettingsOption7 = OptionMenu(self, self.plugboard_settings_option_7, *plugboard_settings_choices).grid(row=3, column=0, padx=1175, sticky=W)
-        self.plugboardsettingsOption8 = OptionMenu(self, self.plugboard_settings_option_8, *plugboard_settings_choices).grid(row=3, column=0, padx=1225, sticky=W)
+        self.plugboardsettingsOption7 = OptionMenu(self, self.plugboard_settings_option_7, *plugboard_settings_choices).grid(row=3, column=0, padx=1275, sticky=W)
+        self.plugboardsettingsOption8 = OptionMenu(self, self.plugboard_settings_option_8, *plugboard_settings_choices).grid(row=3, column=0, padx=1325, sticky=W)
 
-        self.plugboardsettingsOption9 = OptionMenu(self, self.plugboard_settings_option_9, *plugboard_settings_choices).grid(row=4, column=0, padx=800, sticky=W)
-        self.plugboardsettingsOption10 = OptionMenu(self, self.plugboard_settings_option_10, *plugboard_settings_choices).grid(row=4, column=0, padx=850, sticky=W)
+        self.plugboardsettingsOption9 = OptionMenu(self, self.plugboard_settings_option_9, *plugboard_settings_choices).grid(row=4, column=0, padx=900, sticky=W)
+        self.plugboardsettingsOption10 = OptionMenu(self, self.plugboard_settings_option_10, *plugboard_settings_choices).grid(row=4, column=0, padx=950, sticky=W)
 
-        self.plugboardsettingsOption11 = OptionMenu(self, self.plugboard_settings_option_11, *plugboard_settings_choices).grid(row=4, column=0, padx=925, sticky=W)
-        self.plugboardsettingsOption12 = OptionMenu(self, self.plugboard_settings_option_12, *plugboard_settings_choices).grid(row=4, column=0, padx=975, sticky=W)
+        self.plugboardsettingsOption11 = OptionMenu(self, self.plugboard_settings_option_11, *plugboard_settings_choices).grid(row=4, column=0, padx=1025, sticky=W)
+        self.plugboardsettingsOption12 = OptionMenu(self, self.plugboard_settings_option_12, *plugboard_settings_choices).grid(row=4, column=0, padx=1075, sticky=W)
 
-        self.plugboardsettingsOption13 = OptionMenu(self, self.plugboard_settings_option_13, *plugboard_settings_choices).grid(row=4, column=0, padx=1050, sticky=W)
-        self.plugboardsettingsOption14 = OptionMenu(self, self.plugboard_settings_option_14, *plugboard_settings_choices).grid(row=4, column=0, padx=1100, sticky=W)
+        self.plugboardsettingsOption13 = OptionMenu(self, self.plugboard_settings_option_13, *plugboard_settings_choices).grid(row=4, column=0, padx=1150, sticky=W)
+        self.plugboardsettingsOption14 = OptionMenu(self, self.plugboard_settings_option_14, *plugboard_settings_choices).grid(row=4, column=0, padx=1200, sticky=W)
 
-        self.plugboardsettingsOption15 = OptionMenu(self, self.plugboard_settings_option_15, *plugboard_settings_choices).grid(row=4, column=0, padx=1175, sticky=W)
-        self.plugboardsettingsOption16 = OptionMenu(self, self.plugboard_settings_option_16, *plugboard_settings_choices).grid(row=4, column=0, padx=1225, sticky=W)
+        self.plugboardsettingsOption15 = OptionMenu(self, self.plugboard_settings_option_15, *plugboard_settings_choices).grid(row=4, column=0, padx=1275, sticky=W)
+        self.plugboardsettingsOption16 = OptionMenu(self, self.plugboard_settings_option_16, *plugboard_settings_choices).grid(row=4, column=0, padx=1325, sticky=W)
 
-        self.plugboardsettingsOption17 = OptionMenu(self, self.plugboard_settings_option_17, *plugboard_settings_choices).grid(row=5, column=0, padx=800, sticky=W)
-        self.plugboardsettingsOption18 = OptionMenu(self, self.plugboard_settings_option_18, *plugboard_settings_choices).grid(row=5, column=0, padx=850, sticky=W)
+        self.plugboardsettingsOption17 = OptionMenu(self, self.plugboard_settings_option_17, *plugboard_settings_choices).grid(row=5, column=0, padx=900, sticky=W)
+        self.plugboardsettingsOption18 = OptionMenu(self, self.plugboard_settings_option_18, *plugboard_settings_choices).grid(row=5, column=0, padx=950, sticky=W)
 
-        self.plugboardsettingsOption19 = OptionMenu(self, self.plugboard_settings_option_19, *plugboard_settings_choices).grid(row=5, column=0, padx=925, sticky=W)
-        self.plugboardsettingsOption20 = OptionMenu(self, self.plugboard_settings_option_20, *plugboard_settings_choices).grid(row=5, column=0, padx=975, sticky=W)
+        self.plugboardsettingsOption19 = OptionMenu(self, self.plugboard_settings_option_19, *plugboard_settings_choices).grid(row=5, column=0, padx=1025, sticky=W)
+        self.plugboardsettingsOption20 = OptionMenu(self, self.plugboard_settings_option_20, *plugboard_settings_choices).grid(row=5, column=0, padx=1075, sticky=W)
 
-        self.plugboardsettingsOption21 = OptionMenu(self, self.plugboard_settings_option_21, *plugboard_settings_choices).grid(row=5, column=0, padx=1050, sticky=W)
-        self.plugboardsettingsOption22 = OptionMenu(self, self.plugboard_settings_option_22, *plugboard_settings_choices).grid(row=5, column=0, padx=1100, sticky=W)
+        self.plugboardsettingsOption21 = OptionMenu(self, self.plugboard_settings_option_21, *plugboard_settings_choices).grid(row=5, column=0, padx=1150, sticky=W)
+        self.plugboardsettingsOption22 = OptionMenu(self, self.plugboard_settings_option_22, *plugboard_settings_choices).grid(row=5, column=0, padx=1200, sticky=W)
 
-        self.plugboardsettingsOption23 = OptionMenu(self, self.plugboard_settings_option_23, *plugboard_settings_choices).grid(row=5, column=0, padx=1175, sticky=W)
-        self.plugboardsettingsOption24 = OptionMenu(self, self.plugboard_settings_option_24, *plugboard_settings_choices).grid(row=5, column=0, padx=1225, sticky=W)
+        self.plugboardsettingsOption23 = OptionMenu(self, self.plugboard_settings_option_23, *plugboard_settings_choices).grid(row=5, column=0, padx=1275, sticky=W)
+        self.plugboardsettingsOption24 = OptionMenu(self, self.plugboard_settings_option_24, *plugboard_settings_choices).grid(row=5, column=0, padx=1325, sticky=W)
 
-        self.plugboardsettingsOption25 = OptionMenu(self, self.plugboard_settings_option_25, *plugboard_settings_choices).grid(row=6, column=0, padx=987.5, sticky=W)
-        self.plugboardsettingsOption26 = OptionMenu(self, self.plugboard_settings_option_26, *plugboard_settings_choices).grid(row=6, column=0, padx=1037.5, sticky=W)
+        self.plugboardsettingsOption25 = OptionMenu(self, self.plugboard_settings_option_25, *plugboard_settings_choices).grid(row=6, column=0, padx=1087.5, sticky=W)
+        self.plugboardsettingsOption26 = OptionMenu(self, self.plugboard_settings_option_26, *plugboard_settings_choices).grid(row=6, column=0, padx=1137.5, sticky=W)
 
 
         # FUNCTION FOR RANDOMISING AND RESETTING PLUGBOARD SETTINGS
 
-        self.randomiseButton = Button(self, text="Randomise", font=(fontfamilylist[2], 10), command=self.randomisePlugboard).grid(row=2, column=0, padx=800, sticky=W)
-        self.resetButton = Button(self, text="Reset", font=(fontfamilylist[2], 10), command=self.resetPlugboard).grid(row=2, column=0, padx=900, sticky=W)
+        self.randomiseButton = Button(self, text="Randomise", font=(fontfamilylist[2], 10), command=self.randomisePlugboard).grid(row=2, column=0, padx=900, sticky=W)
+        self.resetButton = Button(self, text="Reset", font=(fontfamilylist[2], 10), command=self.resetPlugboard).grid(row=2, column=0, padx=1000, sticky=W)
 
 
         # CHOOSING ROTORS AND REFLECTORS
 
         self.model_main = Label(self, text="Choose which variation of the enigma machine you want: ", font=(fontfamilylist[2], 15)).grid(row=7, column=0, pady=25, sticky=W)
-        self.modelMainValue = OptionMenu(self, self.variation_clicked, *enigma_variation_options).grid(row=7, column=0, padx=540, sticky=W)
+        self.modelMainValue = OptionMenu(self, self.variation_clicked, *enigma_variation_options).grid(row=7, column=0, padx=570, sticky=W)
 
-        self.confirmationButton = Button(self, text="Confirm", font=(fontfamilylist[2], 10), command=self.confirmOption).grid(row=7, column=0, padx=670, sticky=W)
+        self.confirmationButton = Button(self, text="Confirm", font=(fontfamilylist[2], 10), command=self.confirmOption).grid(row=7, column=0, padx=720, sticky=W)
 
         
         self.model_rotor_1 = Label(self, text="Choose the model of your first rotor: ", font=(fontfamilylist[2], 15)).grid(row=8,column=0, pady=25, sticky=W)
@@ -274,7 +247,7 @@ class MainProgram(Tk):
         self.modelReflectorValue = OptionMenu(self, self.model_reflector_clicked, *self.reflecter_models).grid(row=11, column=0, padx=400, sticky=W)
 
 
-        # ENCRYPTOIN OUTPUT
+        # ENCRYPTION OUTPUT
 
         self.encryptionOutputLabel = Label(self, text="CIPHER TEXT:", font=(fontfamilylist[2], 15)).grid(row=12, column=0, sticky=W)
         self.encryptionOutputEntry = Entry(self, width=75, borderwidth=5)
@@ -283,21 +256,9 @@ class MainProgram(Tk):
 
         self.exportButton = Button(self, text="Export", font=(fontfamilylist[2], 10)).grid(row=12, column=0, padx=670, sticky=W)
 
-        # HELP BUTTON
 
-        self.helpButton = Button(self, text="CLICK ME FOR HELP", font=(fontfamilylist[2], 10), command=self.open_support_window).grid(row=14, column=30, pady=20, sticky=E)
-    
-        
 
-        # ASKS USER IF THEY NEED HELP WITH THE PROGRAM IF THIS IS THEIR FIRST TIME BOOTING UP THE PROGRAM
 
-        if opened_before is False:
-            answer = messagebox.askyesno("Welcome to the Enigma-Eldaw program! ",
-                                         "If you know what you are doing, press NO to exit this box and never see this dialog box again. "
-                                         "If you are new to this and need help explaining what it is, press YES to get support. \n\n"
-                                         "DO YOU NEED HELP WITH THIS PROGRAM?")
-            if answer is True:
-                self.open_support_window()
 
     def randomisePlugboard(self):
         list_of_letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -305,6 +266,7 @@ class MainProgram(Tk):
             letter = random.choice(list_of_letters)
             list_of_letters.remove(letter)
             exec("self.plugboard_settings_option_" + str(i) + '.set("' + str(letter) + '")')
+
 
     def importText(self):
 
@@ -318,6 +280,7 @@ class MainProgram(Tk):
         self.encryptionInputEntry.delete(0, END)
         self.encryptionInputEntry.insert(END, file_cont)
 
+
     def exportText(self):
         
         tf = filedialog.askopenfilename(
@@ -329,12 +292,11 @@ class MainProgram(Tk):
         tf.write(tempText)
         tf.close()
 
-        
-
 
     def resetPlugboard(self):
         for i in range(1,27):
             exec("self.plugboard_settings_option_" + str(i) + '.set("-")' )
+
 
     def resetRotorValues(self):
         for i in range(1, 4):
@@ -342,11 +304,6 @@ class MainProgram(Tk):
             exec("self.previous_rotor_position_" + str(i) + '.set("-")')
         
         self.current_rotor_pos = ['-', '-', '-']
-
-
-    def open_support_window(self):
-        supportWindow = HelpWindow(self)
-        supportWindow.grab_set()
 
 
     def confirmOption(self):
