@@ -1,11 +1,8 @@
-from optparse import Option
 from tkinter import *
-from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import font
 import enigma as ee
 import rotors as ro
-import os
 from configparser import ConfigParser
 import random
             
@@ -251,10 +248,9 @@ class MainProgram(Tk):
 
         self.encryptionOutputLabel = Label(self, text="CIPHER TEXT:", font=(fontfamilylist[2], 15)).grid(row=12, column=0, sticky=W)
         self.encryptionOutputEntry = Entry(self, width=75, borderwidth=5)
-        self.encryptionOutputEntry.grid(row=12, column = 0, sticky=W, padx=125)
-        self.encryptButton = Button(self, text="Encrypt", font=(fontfamilylist[2], 10), command=self.encryptClick).grid(row=12, column=0, padx=590, sticky=W)
-
-        self.exportButton = Button(self, text="Export", font=(fontfamilylist[2], 10)).grid(row=12, column=0, padx=670, sticky=W)
+        self.encryptionOutputEntry.grid(row=12, column = 0, sticky=W, padx=150)
+        self.encryptButton = Button(self, text="Encrypt", font=(fontfamilylist[2], 10), command=self.encryptClick).grid(row=12, column=0, padx=770, sticky=W)
+        self.exportButton = Button(self, text="Export", font=(fontfamilylist[2], 10)).grid(row=12, column=0, padx=850, sticky=W)
 
 
 
