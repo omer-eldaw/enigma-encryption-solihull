@@ -34,8 +34,6 @@ class MainProgram(Tk):
 
 
         fontfamilylist = list(font.families())
-        fontindex = 2
-        fontStyle = font.Font(family=fontfamilylist[fontindex])
 
 
         # ALLOWS THE METHOD THAT IS CLICKED IN THE MENU TO BE ASSIGNED TO A VARIABLE WHICH IN THIS CASE IS method_clicked
